@@ -5,7 +5,7 @@ headers = ['name', 'vcpu_count', 'memory_gb', 'slug', 'zones']
 
 @click.group()
 @click.option('--api-token', '-a', envvar='CLOUDSCALE_API_TOKEN', help="API token.")
-@click.option('--profile', '-p', help="Profile used in config file.")
+@click.option('--profile', '-p', envvar='CLOUDSCALE_PROFILE', help="Profile used in config file.")
 @click.option('--verbose', '-v', is_flag=True, help='Enables verbose mode.')
 @click.pass_context
 def flavor(ctx, profile, api_token, verbose):
