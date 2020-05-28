@@ -44,16 +44,16 @@ def test_flavor_get_all():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'flavor',
         '-a',
         'token',
+        'flavor',
         'list',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'flavor',
         '-a',
         'token',
+        'flavor',
         'list',
     ])
     assert result.exit_code > 0

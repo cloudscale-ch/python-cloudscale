@@ -1,45 +1,38 @@
 import click
-from . import _init, _list, _show, _create, _update, _delete
-
-headers = ['network', 'ip_version', 'server', 'reverse_ptr', 'type', 'region', 'tags']
 
 @click.group()
-@click.option('--api-token', '-a', envvar='CLOUDSCALE_API_TOKEN', help="API token.")
-@click.option('--profile', '-p', envvar='CLOUDSCALE_PROFILE', help="Profile used in config file.")
-@click.option('--verbose', '-v', is_flag=True, help='Enables verbose mode.')
 @click.pass_context
-def floating_ip(ctx, profile, api_token, verbose):
-    _init(
-        ctx=ctx,
-        api_token=api_token,
-        profile=profile,
-        verbose=verbose,
-    )
+def floating_ip(ctx):
+    ctx.obj.cloud_resource_name = "floating_ip"
+    ctx.obj.headers = [
+        'network',
+        'ip_version',
+        'server',
+        'reverse_ptr',
+        'type',
+        'region',
+        'tags',
+    ]
 
 @click.option('--filter-tag')
 @floating_ip.command("list")
 @click.pass_obj
 def cmd_list(cloudscale, filter_tag):
-    resource = cloudscale.floating_ip
-    _list(
-        resource=resource,
-        headers=headers,
-        filter_tag=filter_tag,
+    cloudscale.cmd_list(
+        filter_tag=filter_tag
     )
 
 @click.argument('network-id', required=True)
 @floating_ip.command("show")
 @click.pass_obj
 def cmd_show(cloudscale, network_id):
-    resource = cloudscale.floating_ip
-    _show(
-        resource=resource,
+    cloudscale.cmd_show(
         uuid=network_id,
     )
 
 @click.option('--ip-version', type=int, default=4, show_default=True)
 @click.option('--server-uuid', '--server', required=True)
-@click.option('--prefix-length', type=int, show_default=True)
+@click.option('--prefix-length', type=int)
 @click.option('--reverse-ptr')
 @click.option('--type', 'scope', type=click.Choice(['regional', 'global']), default='regional', show_default=True)
 @click.option('--region')
@@ -53,9 +46,7 @@ def cmd_create(cloudscale, ip_version, server_uuid, prefix_length, reverse_ptr, 
         else:
             prefix_length = 32
 
-    resource = cloudscale.floating_ip
-    _create(
-        resource=resource,
+    cloudscale.cmd_create(
         ip_version=ip_version,
         server_uuid=server_uuid,
         prefix_length=prefix_length,
@@ -74,9 +65,7 @@ def cmd_create(cloudscale, ip_version, server_uuid, prefix_length, reverse_ptr, 
 @floating_ip.command("update")
 @click.pass_obj
 def cmd_update(cloudscale, network_id, server_uuid, reverse_ptr, tags, clear_tags, clear_all_tags):
-    resource = cloudscale.floating_ip
-    _update(
-        resource=resource,
+    cloudscale.cmd_update(
         uuid=network_id,
         tags=tags,
         clear_tags=clear_tags,
@@ -90,10 +79,7 @@ def cmd_update(cloudscale, network_id, server_uuid, reverse_ptr, tags, clear_tag
 @floating_ip.command("delete")
 @click.pass_obj
 def cmd_delete(cloudscale, network_id, force):
-    resource = cloudscale.floating_ip
-    _delete(
-        resource=resource,
+    cloudscale.cmd_delete(
         uuid=network_id,
-        headers=headers,
         force=force,
     )

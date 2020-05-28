@@ -1,4 +1,3 @@
-
 import json
 from click import Group
 from collections import OrderedDict
@@ -28,29 +27,35 @@ def to_table(data: list, headers: list) -> str:
     for d in data:
         rows = list()
         for header in headers:
-            if header in d:
-                if header == 'tags':
-                    row = ', '.join(['%s=%s' % (k, v) for k, v in d[header].items()])
-                elif isinstance(d[header], dict):
-                    if 'name' in d[header]:
-                        row = d[header]['name']
-                    elif 'slug' in d[header]:
-                        row = d[header]['slug']
-                elif isinstance(d[header], list):
-                    row_list = []
-                    for i in d[header]:
-                        if isinstance(i, dict):
-                            if 'slug' in i:
-                                row_list.append(i['slug'])
-                            elif 'name' in i:
-                                row_list.append(i['name'])
-                        else:
-                            row_list.append(i)
+            if header not in d:
+                continue
 
-                    row = ', '.join(row_list)
-                else:
-                    row = d[header]
-                rows.append(row)
+            if header == 'tags':
+                row = ', '.join(['%s=%s' % (k, v) for k, v in d[header].items()])
+
+            elif isinstance(d[header], dict):
+                if 'name' in d[header]:
+                    row = d[header]['name']
+                elif 'slug' in d[header]:
+                    row = d[header]['slug']
+
+            elif isinstance(d[header], list):
+                row_list = []
+                for i in d[header]:
+                    if isinstance(i, dict):
+                        if 'slug' in i:
+                            row_list.append(i['slug'])
+                        elif 'name' in i:
+                            row_list.append(i['name'])
+                    else:
+                        row_list.append(i)
+
+                row = ', '.join(row_list)
+
+            else:
+                row = d[header]
+
+            rows.append(row)
         cols.append(rows)
 
     result = tabulate(cols, headers=headers)

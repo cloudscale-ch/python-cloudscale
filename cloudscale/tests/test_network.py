@@ -48,16 +48,16 @@ def test_network_get_all():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'network',
         '-a',
         'token',
+        'network',
         'list',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'network',
         '-a',
         'token',
+        'network',
         'list',
     ])
     assert result.exit_code > 0
@@ -88,15 +88,15 @@ def test_network_get_by_uuid():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'network',
         '-a', 'token',
+        'network',
         'show',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'network',
         '-a', 'token',
+        'network',
         'show',
         uuid,
     ])
@@ -139,24 +139,24 @@ def test_network_delete():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'network',
         '-a', 'token',
+        'network',
         'delete',
         uuid,
     ])
     assert result.exit_code == 1
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'network',
         '-a', 'token',
+        'network',
         'delete',
         uuid,
         '--force',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'network',
         '-a', 'token',
+        'network',
         'delete',
         '--force',
         'unknown',
@@ -190,16 +190,16 @@ def test_network_create():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'network',
         '-a', 'token',
+        'network',
         'create',
         '--name',
         name,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'network',
         '-a', 'token',
+        'network',
         'create',
         '--name',
         name,
@@ -244,8 +244,8 @@ def test_network_update():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'network',
         '-a', 'token',
+        'network',
         'update',
         uuid,
         '--name',
@@ -253,8 +253,8 @@ def test_network_update():
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'network',
         '-a', 'token',
+        'network',
         'update',
         uuid,
         '--name',

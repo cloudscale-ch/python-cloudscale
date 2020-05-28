@@ -47,16 +47,16 @@ def test_floating_ip_get_all():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a',
         'token',
+        'floating-ip',
         'list',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a',
         'token',
+        'floating-ip',
         'list',
     ])
     assert result.exit_code > 0
@@ -86,15 +86,15 @@ def test_floating_ip_get_by_uuid():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a', 'token',
+        'floating-ip',
         'show',
         network_id,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a', 'token',
+        'floating-ip',
         'show',
         network_id,
     ])
@@ -137,24 +137,24 @@ def test_floating_ip_delete():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a', 'token',
+        'floating-ip',
         'delete',
         network_id,
     ])
     assert result.exit_code == 1
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a', 'token',
+        'floating-ip',
         'delete',
         network_id,
         '--force',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a', 'token',
+        'floating-ip',
         'delete',
         '--force',
         'unknown',
@@ -187,8 +187,8 @@ def test_floating_ip_create():
     )
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a', 'token',
+        'floating-ip',
         'create',
         '--ip-version',
         ip_version,
@@ -197,8 +197,8 @@ def test_floating_ip_create():
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a', 'token',
+        'floating-ip',
         'create',
         '--ip-version',
         ip_version,
@@ -207,8 +207,8 @@ def test_floating_ip_create():
     ])
     assert result.exit_code > 0
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a', 'token',
+        'floating-ip',
         'create',
         '--ip-version',
         6,
@@ -255,8 +255,8 @@ def test_floating_ip_update():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a', 'token',
+        'floating-ip',
         'update',
         '--reverse-ptr',
         reverse_ptr,
@@ -264,8 +264,8 @@ def test_floating_ip_update():
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'floating-ip',
         '-a', 'token',
+        'floating-ip',
         'update',
         '--reverse-ptr',
         reverse_ptr,

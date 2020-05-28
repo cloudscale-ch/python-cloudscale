@@ -52,16 +52,18 @@ def test_server_groups_get_all():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a',
         'token',
+        'server-group',
         'list',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server-group',
         '-a',
         'token',
+        '-o',
+        'json',
+        'server-group',
         'list',
     ])
     assert result.exit_code > 0
@@ -92,15 +94,16 @@ def test_server_groups_get_by_uuid():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'show',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        '-o', 'json',
+        'server-group',
         'show',
         uuid,
     ])
@@ -143,23 +146,23 @@ def test_server_groups_delete():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'delete',
         uuid,
     ])
     assert result.exit_code == 1
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'delete',
         '--force',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'delete',
         '--force',
         'unknown',
@@ -191,16 +194,16 @@ def test_server_groups_create():
     )
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'create',
         '--name',
         name,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'create',
         '--name',
         name,
@@ -243,8 +246,8 @@ def test_server_groups_update():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'update',
         '--name',
         name,
@@ -252,8 +255,8 @@ def test_server_groups_update():
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'update',
         '--name',
         name,
@@ -299,8 +302,8 @@ def test_invalid_tags_create():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'create',
         '--name',
         name,
@@ -311,8 +314,8 @@ def test_invalid_tags_create():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'create',
         '--name',
         name,
@@ -323,8 +326,8 @@ def test_invalid_tags_create():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'create',
         '--name',
         name,
@@ -351,8 +354,8 @@ def test_invalid_tags_update():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'update',
         '--name',
         name,
@@ -364,8 +367,8 @@ def test_invalid_tags_update():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'update',
         '--name',
         name,
@@ -377,8 +380,8 @@ def test_invalid_tags_update():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server-group',
         '-a', 'token',
+        'server-group',
         'update',
         '--name',
         name,

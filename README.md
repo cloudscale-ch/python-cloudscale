@@ -49,7 +49,7 @@ cloudscale-cli flavor list
 Passing the `--api-token` parameter:
 
 ~~~shell
-cloudscale-cli server --api-token <your_token> create ...
+cloudscale-cli --api-token <your_token> server create ...
 ~~~
 
 #### Config file
@@ -77,7 +77,7 @@ api_token = <token>
 
 Passing the command line option will overwrite the ENV var as one would expect:
 ~~~
-cloudscale-cli server --profile production list
+cloudscale-cli --profile production server list
 ~~~
 
 ## Help
@@ -89,7 +89,12 @@ See all options:
 Usage: cloudscale-cli [OPTIONS] COMMAND [ARGS]...
 
 Options:
-  -h, --help  Show this message and exit.
+  --version                  Show the version and exit.
+  -a, --api-token TEXT       API token.
+  -p, --profile TEXT         Profile used in config file.
+  -v, --verbose              Enables verbose mode.
+  -o, --output [table|json]  Output format.  [default: table]
+  -h, --help                 Show this message and exit.
 
 Commands:
   flavor
@@ -101,7 +106,6 @@ Commands:
   server
   server-group
   subnet
-  version
   volume
 ~~~
 
@@ -115,8 +119,16 @@ cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 -
 
 #### List all servers
 
+Get a list as table view:
+
 ~~~shell
 cloudscale-cli server list
+~~~
+
+Get a list as JSON response:
+
+~~~shell
+cloudscale-cli -o json server list
 ~~~
 
 #### List servers having the tag project with value gemini
@@ -159,6 +171,20 @@ cloudscale-cli server stop <uuid>
 
 ~~~shell
 cloudscale-cli server start <uuid>
+~~~
+
+#### Delete a server
+
+Query and prompt to delete a server:
+
+~~~shell
+cloudscale-cli server delete <uuid>
+~~~
+
+Just delete without questions asked:
+
+~~~shell
+cloudscale-cli server delete -f <uuid>
 ~~~
 
 ## Usage in Python

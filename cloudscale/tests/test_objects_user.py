@@ -71,25 +71,25 @@ def test_objects_user_get_all():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'objects-user',
         '-a',
         'token',
+        'objects-user',
         'list',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'objects-user',
         '-a',
         'token',
+        'objects-user',
         'list',
         '--filter-tag',
         'project=apollo',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'objects-user',
         '-a',
         'token',
+        'objects-user',
         'list',
     ])
     assert result.exit_code > 0
@@ -121,16 +121,16 @@ def test_objects_user_get_by_uuid():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'objects-user',
         '-a', 'token',
+        'objects-user',
         'show',
         uuid,
     ])
     assert result.exit_code == 0
 
     result = runner.invoke(cli, [
-        'objects-user',
         '-a', 'token',
+        'objects-user',
         'show',
         'unknown',
     ])
@@ -171,23 +171,23 @@ def test_objects_user_delete():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'objects-user',
         '-a', 'token',
+        'objects-user',
         'delete',
         uuid,
     ])
     assert result.exit_code == 1
     result = runner.invoke(cli, [
-        'objects-user',
         '-a', 'token',
+        'objects-user',
         'delete',
         '--force',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'objects-user',
         '-a', 'token',
+        'objects-user',
         'delete',
         '--force',
         'unknown',
@@ -234,16 +234,16 @@ def test_objects_user_create():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'objects-user',
         '-a', 'token',
+        'objects-user',
         'create',
         '--display-name',
         display_name,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'objects-user',
         '-a', 'token',
+        'objects-user',
         'create',
         '--display-name',
         display_name,
@@ -289,8 +289,8 @@ def test_objects_user_update():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'objects-user',
         '-a', 'token',
+        'objects-user',
         'update',
         uuid,
         '--display-name',
@@ -298,8 +298,8 @@ def test_objects_user_update():
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'objects-user',
         '-a', 'token',
+        'objects-user',
         'update',
         'unknown',
         '--display-name',
