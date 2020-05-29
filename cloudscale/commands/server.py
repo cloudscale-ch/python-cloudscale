@@ -1,4 +1,5 @@
 import click
+import uuid
 
 @click.group()
 @click.pass_context
@@ -35,6 +36,7 @@ def cmd_show(cloudscale, uuid):
         uuid=uuid,
     )
 
+@click.option('--desired-amount', type=click.IntRange(1, 10), default=1, show_default=True)
 @click.option('--name', required=True)
 @click.option('--flavor', required=True)
 @click.option('--image', required=True)
@@ -69,24 +71,52 @@ def cmd_create(
     server_groups,
     user_data,
     tags,
+    desired_amount,
 ):
-    cloudscale.cmd_create(
-        name=name,
-        flavor=flavor,
-        image=image,
-        zone=zone,
-        volume_size=volume_size,
-        volumes=volumes or None,
-        interfaces=interfaces or None,
-        ssh_keys=ssh_keys or None,
-        password=password,
-        use_public_network=use_public_network,
-        use_private_network=use_private_network,
-        use_ipv6=use_ipv6,
-        server_groups=server_groups or None,
-        user_data=user_data,
-        tags=tags,
-    )
+    if desired_amount > 1:
+        servers_created = list()
+
+        while len(servers_created) < desired_amount:
+            suffix = str(uuid.uuid4()).split('-')[0]
+            server_name =  click.prompt('Server name:', default=f"{name}-{suffix}")
+            s = cloudscale.cmd_create(
+                silent=True,
+                name=server_name,
+                flavor=flavor,
+                image=image,
+                zone=zone,
+                volume_size=volume_size,
+                volumes=volumes or None,
+                interfaces=interfaces or None,
+                ssh_keys=ssh_keys or None,
+                password=password,
+                use_public_network=use_public_network,
+                use_private_network=use_private_network,
+                use_ipv6=use_ipv6,
+                server_groups=server_groups or None,
+                user_data=user_data,
+                tags=tags,
+            )
+            servers_created.append(s)
+        click.echo(cloudscale._format_output(servers_created))
+    else:
+        cloudscale.cmd_create(
+            name=name,
+            flavor=flavor,
+            image=image,
+            zone=zone,
+            volume_size=volume_size,
+            volumes=volumes or None,
+            interfaces=interfaces or None,
+            ssh_keys=ssh_keys or None,
+            password=password,
+            use_public_network=use_public_network,
+            use_private_network=use_private_network,
+            use_ipv6=use_ipv6,
+            server_groups=server_groups or None,
+            user_data=user_data,
+            tags=tags,
+        )
 
 @click.argument('uuid', required=True)
 @click.option('--name')

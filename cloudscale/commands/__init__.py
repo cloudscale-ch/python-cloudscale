@@ -63,7 +63,7 @@ class CloudscaleCommand:
             click.echo(e, err=True)
             sys.exit(1)
 
-    def cmd_create(self, **kwargs):
+    def cmd_create(self, silent=False, **kwargs):
         try:
             if 'tags' in kwargs:
                 try:
@@ -71,9 +71,11 @@ class CloudscaleCommand:
                 except ValueError as e:
                     click.echo(e, err=True)
                     sys.exit(1)
-
             response = self.get_client_resource().create(**kwargs)
-            click.echo(self._format_output(response))
+            if not silent:
+                click.echo(self._format_output(response))
+            else:
+                return response
         except CloudscaleApiException as e:
             click.echo(e, err=True)
             sys.exit(1)
