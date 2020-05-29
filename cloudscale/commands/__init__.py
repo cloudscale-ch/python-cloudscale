@@ -37,10 +37,23 @@ class CloudscaleCommand:
                 response = [response]
             return to_table(response, self.headers)
 
-    def cmd_list(self, filter_tag=None):
+    def cmd_list(self, filter_tag=None, action=None, delete=False):
+        if action and delete:
+            click.echo("Error: --action and --delete are mutually exclusive", err=True)
+            sys.exit(1)
         try:
             response = self.get_client_resource().get_all(filter_tag)
             click.echo(self._format_output(response))
+            if delete:
+                click.confirm(f"Do you want to delete?", abort=True)
+                for r in response:
+                    self.cmd_delete(uuid=r['uuid'], force=True, skip_query=True)
+            elif action:
+                click.confirm(f"Do you want to {action}?", abort=True)
+                for r in response:
+                    getattr(self.get_client_resource(), action)(r['uuid'])
+                response = self.get_client_resource().get_all(filter_tag)
+                click.echo(self._format_output(response))
         except CloudscaleApiException as e:
             click.echo(e, err=True)
             sys.exit(1)
@@ -96,14 +109,15 @@ class CloudscaleCommand:
             click.echo(e, err=True)
             sys.exit(1)
 
-    def cmd_delete(self, uuid, force):
+    def cmd_delete(self, uuid, force=False, skip_query=False):
         try:
-            response = self.get_client_resource().get_by_uuid(uuid)
-            click.echo(self._format_output(response))
+            if not skip_query:
+                response = self.get_client_resource().get_by_uuid(uuid)
+                click.echo(self._format_output(response))
             if not force:
                 click.confirm('Do you want to delete?', abort=True)
             self.get_client_resource().delete(uuid)
-            click.echo("Deleted!")
+            click.echo(f"{uuid} deleted!")
         except CloudscaleApiException as e:
             click.echo(e, err=True)
             sys.exit(1)
