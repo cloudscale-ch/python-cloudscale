@@ -44,16 +44,16 @@ def test_image_get_all():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'image',
         '-a',
         'token',
+        'image',
         'list',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'image',
         '-a',
         'token',
+        'image',
         'list',
     ])
     assert result.exit_code > 0

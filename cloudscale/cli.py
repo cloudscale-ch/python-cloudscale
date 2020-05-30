@@ -1,6 +1,7 @@
 import click
+from .version import __version__
 from .util import OrderedGroup
-from .commands.version import cmd_version
+from .commands import CloudscaleCommand, OUTPUT_FORMATS
 from .commands.server import server
 from .commands.server_group import server_group
 from .commands.flavor import flavor
@@ -16,11 +17,21 @@ from .commands.objects_user import objects_user
 @click.group(cls=OrderedGroup, context_settings={
     'help_option_names': ['-h', '--help'],
 })
-def cli():
-    pass
+@click.version_option(__version__, '--version')
+@click.option('--api-token', '-a', envvar='CLOUDSCALE_API_TOKEN', help="API token.")
+@click.option('--profile', '-p', envvar='CLOUDSCALE_PROFILE', help="Profile used in config file.")
+@click.option('--verbose', '-v', is_flag=True, help='Enables verbose mode.')
+@click.option('--output', '-o', type=click.Choice(OUTPUT_FORMATS), default="table", help="Output format.", show_default=True)
+@click.pass_context
+def cli(ctx, profile, api_token, verbose, output):
+    ctx.obj = CloudscaleCommand(
+        api_token=api_token,
+        profile=profile,
+        verbose=verbose,
+        output=output,
+    )
 
 
-cli.add_command(cmd_version)
 cli.add_command(server)
 cli.add_command(server_group)
 cli.add_command(floating_ip)

@@ -45,16 +45,16 @@ def test_volume_get_all():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'volume',
         '-a',
         'token',
+        'volume',
         'list',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'volume',
         '-a',
         'token',
+        'volume',
         'list',
     ])
     assert result.exit_code > 0
@@ -86,15 +86,15 @@ def test_volume_get_by_uuid():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'volume',
         '-a', 'token',
+        'volume',
         'show',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'volume',
         '-a', 'token',
+        'volume',
         'show',
         uuid,
     ])
@@ -137,23 +137,23 @@ def test_volume_delete():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'volume',
         '-a', 'token',
+        'volume',
         'delete',
         uuid,
     ])
     assert result.exit_code == 1
     result = runner.invoke(cli, [
-        'volume',
         '-a', 'token',
+        'volume',
         'delete',
         '--force',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'volume',
         '-a', 'token',
+        'volume',
         'delete',
         '--force',
         'unknown',
@@ -190,8 +190,8 @@ def test_volume_create():
     )
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'volume',
         '-a', 'token',
+        'volume',
         'create',
         '--name',
         name,
@@ -202,8 +202,8 @@ def test_volume_create():
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'volume',
         '-a', 'token',
+        'volume',
         'create',
         '--name',
         name,
@@ -251,8 +251,8 @@ def test_volume_update():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'volume',
         '-a', 'token',
+        'volume',
         'update',
         '--name',
         name,
@@ -260,8 +260,8 @@ def test_volume_update():
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'volume',
         '-a', 'token',
+        'volume',
         'update',
         '--name',
         name,

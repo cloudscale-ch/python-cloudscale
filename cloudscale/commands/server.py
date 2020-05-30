@@ -1,29 +1,25 @@
 import click
-from . import _init, _list, _show, _create, _update, _delete, _act
-
-headers = ['name', 'image', 'flavor', 'zone', 'tags', 'server_groups', 'uuid', 'status']
 
 @click.group()
-@click.option('--api-token', '-a', envvar='CLOUDSCALE_API_TOKEN', help="API token.")
-@click.option('--profile', '-p', envvar='CLOUDSCALE_PROFILE', help="Profile used in config file.")
-@click.option('--verbose', '-v', is_flag=True, help='Enables verbose mode.')
 @click.pass_context
-def server(ctx, profile, api_token, verbose):
-    _init(
-        ctx=ctx,
-        api_token=api_token,
-        profile=profile,
-        verbose=verbose,
-    )
+def server(ctx):
+    ctx.obj.cloud_resource_name = "server"
+    ctx.obj.headers = [
+        'name',
+        'image',
+        'flavor',
+        'zone',
+        'tags',
+        'server_groups',
+        'uuid',
+        'status',
+    ]
 
 @click.option('--filter-tag')
 @server.command("list")
 @click.pass_obj
 def cmd_list(cloudscale, filter_tag):
-    resource = cloudscale.server
-    _list(
-        resource=resource,
-        headers=headers,
+    cloudscale.cmd_list(
         filter_tag=filter_tag,
     )
 
@@ -31,9 +27,7 @@ def cmd_list(cloudscale, filter_tag):
 @server.command("show")
 @click.pass_obj
 def cmd_show(cloudscale, uuid):
-    resource = cloudscale.server
-    _show(
-        resource=resource,
+    cloudscale.cmd_show(
         uuid=uuid,
     )
 
@@ -72,9 +66,7 @@ def cmd_create(
     user_data,
     tags,
 ):
-    resource = cloudscale.server
-    _create(
-        resource=resource,
+    cloudscale.cmd_create(
         name=name,
         flavor=flavor,
         image=image,
@@ -102,9 +94,7 @@ def cmd_create(
 @server.command("update")
 @click.pass_obj
 def cmd_update(cloudscale, uuid, name, flavor, interfaces, tags, clear_tags, clear_all_tags):
-    resource = cloudscale.server
-    _update(
-        resource=resource,
+    cloudscale.cmd_update(
         uuid=uuid,
         tags=tags,
         clear_tags=clear_tags,
@@ -119,11 +109,8 @@ def cmd_update(cloudscale, uuid, name, flavor, interfaces, tags, clear_tags, cle
 @server.command("delete")
 @click.pass_obj
 def cmd_delete(cloudscale, uuid, force):
-    resource = cloudscale.server
-    _delete(
-        resource=resource,
+    cloudscale.cmd_delete(
         uuid=uuid,
-        headers=headers,
         force=force,
     )
 
@@ -131,9 +118,7 @@ def cmd_delete(cloudscale, uuid, force):
 @server.command("start")
 @click.pass_obj
 def cmd_start(cloudscale, uuid):
-    resource = cloudscale.server
-    _act(
-        resource=resource,
+    cloudscale.cmd_act(
         action="start",
         uuid=uuid,
     )
@@ -142,9 +127,7 @@ def cmd_start(cloudscale, uuid):
 @server.command("stop")
 @click.pass_obj
 def cmd_stop(cloudscale, uuid):
-    resource = cloudscale.server
-    _act(
-        resource=resource,
+    cloudscale.cmd_act(
         action="stop",
         uuid=uuid,
     )
@@ -153,9 +136,7 @@ def cmd_stop(cloudscale, uuid):
 @server.command("reboot")
 @click.pass_obj
 def cmd_reboot(cloudscale, uuid):
-    resource = cloudscale.server
-    _act(
-        resource=resource,
+    cloudscale.cmd_act(
         action="reboot",
         uuid=uuid,
     )

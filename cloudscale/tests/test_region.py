@@ -37,16 +37,16 @@ def test_region_get_all():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'region',
         '-a',
         'token',
+        'region',
         'list',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'region',
         '-a',
         'token',
+        'region',
         'list',
     ])
     assert result.exit_code > 0

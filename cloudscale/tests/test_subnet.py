@@ -41,16 +41,16 @@ def test_subnet_get_all():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'subnet',
         '-a',
         'token',
+        'subnet',
         'list',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'subnet',
         '-a',
         'token',
+        'subnet',
         'list',
     ])
     assert result.exit_code > 0
@@ -80,15 +80,15 @@ def test_subnet_get_by_uuid():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'subnet',
         '-a', 'token',
+        'subnet',
         'show',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'subnet',
         '-a', 'token',
+        'subnet',
         'show',
         uuid,
     ])

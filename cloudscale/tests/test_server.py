@@ -52,16 +52,16 @@ def test_server_get_all():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server',
         '-a',
         'token',
+        'server',
         'list',
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server',
         '-a',
         'token',
+        'server',
         'list',
     ])
     assert result.exit_code > 0
@@ -82,18 +82,18 @@ def test_server_get_all_fitlered():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server',
         '-a',
         'token',
+        'server',
         'list',
         '--filter-tag',
         'project=gemini'
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server',
         '-a',
         'token',
+        'server',
         'list',
         '--filter-tag',
         'project'
@@ -129,15 +129,15 @@ def test_server_get_by_uuid():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'show',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'show',
         uuid,
     ])
@@ -180,24 +180,24 @@ def test_server_delete():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'delete',
         uuid,
     ])
     assert result.exit_code == 1
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'delete',
         '--force',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'delete',
         '--force',
         'unknown',
@@ -261,8 +261,8 @@ def test_server_create():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'create',
         '--name',
         name,
@@ -273,8 +273,8 @@ def test_server_create():
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'create',
         '--name',
         name,
@@ -325,8 +325,8 @@ def test_server_update():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'update',
         '--name',
         name,
@@ -336,8 +336,8 @@ def test_server_update():
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'update',
         '--name',
         name,
@@ -382,15 +382,15 @@ def test_server_start():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'start',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'start',
         uuid,
     ])
@@ -431,15 +431,15 @@ def test_server_stop():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'stop',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'stop',
         uuid,
     ])
@@ -480,15 +480,15 @@ def test_server_reboot():
 
     runner = CliRunner()
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'reboot',
         uuid,
     ])
     assert result.exit_code == 0
     result = runner.invoke(cli, [
-        'server',
         '-a', 'token',
+        'server',
         'reboot',
         uuid,
     ])
