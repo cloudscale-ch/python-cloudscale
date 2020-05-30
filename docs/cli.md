@@ -46,7 +46,7 @@ eval "$(_CLOUDSCALE_CLI_COMPLETE=source cloudscale-cli)"
 
 ## Authentication
 
-#### Evironment variable
+### Evironment variable
 
 Using the ENV `CLOUDSCALE_API_TOKEN` variable:
 
@@ -99,13 +99,22 @@ cloudscale-cli --profile production server list
 Create one server:
 
 ~~~shell
-cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 --ssh-key "$(cat ~/.ssh/id_rsa.pub)"
+cloudscale-cli server create \
+--name my-server \
+--flavor flex-2 \
+--image centos-7 \
+--ssh-key "$(cat ~/.ssh/id_rsa.pub)"
 ~~~
 
 Create up to 10 servers in a row with `--desired-amount`:
 
 ~~~shell
-cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 --ssh-key "$(cat ~/.ssh/id_rsa.pub)" --desired-amount 10
+cloudscale-cli server create \
+--name my-server \
+--flavor flex-2 \
+--image centos-7 \
+--ssh-key "$(cat ~/.ssh/id_rsa.pub)" \
+--desired-amount 10
 ~~~
 
 ### List Servers
@@ -147,7 +156,10 @@ cloudscale-cli server list --filter-json '[?status == `stopped`]'
 Get a list of stopped servers having tag `project=demo` and start them after accepting:
 
 ~~~shell
-cloudscale-cli server list --filter-tag project=demo --filter-json '[?status == `stopped`]' --action start
+cloudscale-cli server list \
+--filter-tag project=demo \
+--filter-json '[?status == `stopped`]' \
+--action start
 ...
 Do you want to start? [y/N]:
 ~~~
@@ -155,7 +167,10 @@ Do you want to start? [y/N]:
 Start a list of stopped servers after accepting having tag `project=demo`:
 
 ~~~shell
-cloudscale-cli server list --filter-tag project=demo --filter-json '[?status == `stopped`]' --action start
+cloudscale-cli server list \
+--filter-tag project=demo \
+--filter-json '[?status == `stopped`]' \
+--action start
 ...
 Do you want to start? [y/N]:
 ~~~
@@ -163,7 +178,10 @@ Do you want to start? [y/N]:
 Delete a list of stopped servers after accepting having tag `project=demo`:
 
 ~~~shell
-cloudscale-cli server list --filter-tag project=demo --filter-json '[?status == `stopped`]' --delete
+cloudscale-cli server list \
+--filter-tag project=demo \
+--filter-json '[?status == `stopped`]' \
+--delete
 ...
 Do you want to delete? [y/N]:
 ~~~
@@ -171,7 +189,11 @@ Do you want to delete? [y/N]:
 Get a simplified custom JSON list of stopped servers in profile `production`:
 
 ~~~shell
-cloudscale-cli -output json --profile production server list --filter-json '[?status == `stopped`].{"server_name": name, "zone": zone.slug, "image": image.slug, "flavor": flavor.slug}'
+cloudscale-cli \
+--output json \
+--profile production \
+server list \
+--filter-json '[?status == `stopped`].{"server_name": name, "zone": zone.slug, "image": image.slug, "flavor": flavor.slug}'
 [
     {
         "flavor": "flex-8",
@@ -205,13 +227,15 @@ cloudscale-cli server update <uuid> --clear-tag status
 Add/Update server tags and remove a specific tag key:
 
 ~~~shell
-cloudscale-cli server update <uuid> --tag project=apollo --tag stage=prod --clear-tag status
+cloudscale-cli server update <uuid> \
+--tag project=apollo --tag stage=prod --clear-tag status
 ~~~
 
 Add/Update server tags, remove other tags:
 
 ~~~shell
-cloudscale-cli server update <uuid> --tag project=apollo --tag stage=prod --clear-all-tags
+cloudscale-cli server update <uuid> \
+--tag project=apollo --tag stage=prod --clear-all-tags
 ~~~
 
 ### Server Actions
