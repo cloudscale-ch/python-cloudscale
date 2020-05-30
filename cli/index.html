@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>CLI - Python Cloudscale</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "CLI";
+    var mkdocs_page_input_path = "cli.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Python Cloudscale</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">CLI</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#help">Help</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#autocompletion">Autocompletion</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#authentication">Authentication</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#evironment-variable">Evironment variable</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#command-line-argument">Command line argument</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#config-file">Config file</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#usage-examples">Usage Examples</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create-servers">Create Servers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#list-servers">List Servers</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#list-servers-and-filter-by-tag">List Servers and Filter by Tag</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#list-servers-and-filter-by-json-query">List Servers and Filter by JSON Query</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#working-with-tags">Working with Tags</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#server-actions">Server Actions</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#verbosity-and-debugging">Verbosity and Debugging</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../library/">Library</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Python Cloudscale</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>CLI</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="command-line-interface">Command Line Interface</h1>
+<h2 id="help">Help</h2>
+<p>See all options:</p>
+<pre><code class="shell"> $ cloudscale-cli
+Usage: cloudscale-cli [OPTIONS] COMMAND [ARGS]...
+
+Options:
+  --version                  Show the version and exit.
+  -a, --api-token TEXT       API token.
+  -p, --profile TEXT         Profile used in config file.
+  --debug                    Enables debug log output.
+  -o, --output [table|json]  Output format.  [default: table]
+  -h, --help                 Show this message and exit.
+
+Commands:
+  flavor
+  floating-ip
+  image
+  network
+  objects-user
+  region
+  server
+  server-group
+  subnet
+  volume
+</code></pre>
+
+<h2 id="autocompletion">Autocompletion</h2>
+<p>zsh:</p>
+<pre><code class="shell">eval &quot;$(_CLOUDSCALE_CLI_COMPLETE=source_zsh cloudscale-cli)&quot;
+</code></pre>
+
+<p>bash:</p>
+<pre><code class="shell">eval &quot;$(_CLOUDSCALE_CLI_COMPLETE=source cloudscale-cli)&quot;
+</code></pre>
+
+<h2 id="authentication">Authentication</h2>
+<h4 id="evironment-variable">Evironment variable</h4>
+<p>Using the ENV <code>CLOUDSCALE_API_TOKEN</code> variable:</p>
+<pre><code class="shell">export CLOUDSCALE_API_TOKEN=&lt;your token&gt;
+cloudscale-cli flavor list
+</code></pre>
+
+<h3 id="command-line-argument">Command line argument</h3>
+<p>Passing the <code>--api-token</code> parameter:</p>
+<pre><code class="shell">cloudscale-cli --api-token &lt;your_token&gt; server create ...
+</code></pre>
+
+<h3 id="config-file">Config file</h3>
+<p>Creating an ini file <code>.cloudscale.ini</code> (leading dot) in your <code>$HOME</code> or a <code>cloudscale.ini</code> (without leading dot) in the <code>CWD</code> with the following schema:</p>
+<pre><code class="ini">[default]
+api_token = &lt;token&gt;
+</code></pre>
+
+<p>The default profile taken if available is <code>default</code>. The profile can be chosen by passing <code>--profile</code> or <code>CLOUDSCALE_PROFILE</code> ENV variable.</p>
+<pre><code class="shell">export CLOUDSCALE_PROFILE=staging
+</code></pre>
+
+<pre><code class="ini">[production]
+api_token = &lt;token&gt;
+
+[staging]
+api_token = &lt;token&gt;
+</code></pre>
+
+<p>Passing the command line option will overwrite the ENV var as one would expect:</p>
+<pre><code class="shell">cloudscale-cli --profile production server list
+</code></pre>
+
+<h2 id="usage-examples">Usage Examples</h2>
+<h3 id="create-servers">Create Servers</h3>
+<p>Create one server:</p>
+<pre><code class="shell">cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 --ssh-key &quot;$(cat ~/.ssh/id_rsa.pub)&quot;
+</code></pre>
+
+<p>Create up to 10 servers in a row with <code>--desired-amount</code>:</p>
+<pre><code class="shell">cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 --ssh-key &quot;$(cat ~/.ssh/id_rsa.pub)&quot; --desired-amount 10
+</code></pre>
+
+<h3 id="list-servers">List Servers</h3>
+<p>Get a list as table view:</p>
+<pre><code class="shell">cloudscale-cli server list
+</code></pre>
+
+<p>Get a list as JSON response:</p>
+<pre><code class="shell">cloudscale-cli -o json server list
+</code></pre>
+
+<h4 id="list-servers-and-filter-by-tag">List Servers and Filter by Tag</h4>
+<p>List servers having the tag project with value gemini:</p>
+<pre><code class="shell">cloudscale-cli server list --filter-tag project=gemini
+</code></pre>
+
+<p>List servers having a tag project:</p>
+<pre><code class="shell">cloudscale-cli server list --filter-tag project
+</code></pre>
+
+<h4 id="list-servers-and-filter-by-json-query">List Servers and Filter by JSON Query</h4>
+<p>Get a list of stopped servers:</p>
+<pre><code class="shell">cloudscale-cli server list --filter-json '[?status == `stopped`]'
+</code></pre>
+
+<p>Get a list of stopped servers having tag <code>project=demo</code> and start them after accepting:</p>
+<pre><code class="shell">cloudscale-cli server list --filter-tag project=demo --filter-json '[?status == `stopped`]' --action start
+...
+Do you want to start? [y/N]:
+</code></pre>
+
+<p>Start a list of stopped servers after accepting having tag <code>project=demo</code>:</p>
+<pre><code class="shell">cloudscale-cli server list --filter-tag project=demo --filter-json '[?status == `stopped`]' --action start
+...
+Do you want to start? [y/N]:
+</code></pre>
+
+<p>Delete a list of stopped servers after accepting having tag <code>project=demo</code>:</p>
+<pre><code class="shell">cloudscale-cli server list --filter-tag project=demo --filter-json '[?status == `stopped`]' --delete
+...
+Do you want to delete? [y/N]:
+</code></pre>
+
+<p>Get a simplified custom JSON list of stopped servers in profile <code>production</code>:</p>
+<pre><code class="shell">cloudscale-cli -output json --profile production server list --filter-json '[?status == `stopped`].{&quot;server_name&quot;: name, &quot;zone&quot;: zone.slug, &quot;image&quot;: image.slug, &quot;flavor&quot;: flavor.slug}'
+[
+    {
+        &quot;flavor&quot;: &quot;flex-8&quot;,
+        &quot;image&quot;: &quot;rhel-7&quot;,
+        &quot;server_name&quot;: &quot;server1&quot;,
+        &quot;zone&quot;: &quot;rma1&quot;
+    },
+    {
+        &quot;flavor&quot;: &quot;flex-8&quot;,
+        &quot;image&quot;: &quot;centos-7&quot;,
+        &quot;server_name&quot;: &quot;server2&quot;,
+        &quot;zone&quot;: &quot;rma1&quot;
+    }
+]
+</code></pre>
+
+<h3 id="working-with-tags">Working with Tags</h3>
+<p>Add/Update servers tags (but keep all existing with different keys):</p>
+<pre><code class="shell">cloudscale-cli server update &lt;uuid&gt; --tag project=apollo --tag stage=prod
+</code></pre>
+
+<p>Delete a server tag (but keep all others existing):</p>
+<pre><code class="shell">cloudscale-cli server update &lt;uuid&gt; --clear-tag status
+</code></pre>
+
+<p>Add/Update server tags and remove a specific tag key:</p>
+<pre><code class="shell">cloudscale-cli server update &lt;uuid&gt; --tag project=apollo --tag stage=prod --clear-tag status
+</code></pre>
+
+<p>Add/Update server tags, remove other tags:</p>
+<pre><code class="shell">cloudscale-cli server update &lt;uuid&gt; --tag project=apollo --tag stage=prod --clear-all-tags
+</code></pre>
+
+<h3 id="server-actions">Server Actions</h3>
+<p>Stop a server:</p>
+<pre><code class="shell">cloudscale-cli server stop &lt;uuid&gt;
+</code></pre>
+
+<p>Start a server:</p>
+<pre><code class="shell">cloudscale-cli server start &lt;uuid&gt;
+</code></pre>
+
+<p>Delete a server after accepting:</p>
+<pre><code class="shell">cloudscale-cli server delete &lt;uuid&gt;
+</code></pre>
+
+<p>Just delete without questions asked:</p>
+<pre><code class="shell">cloudscale-cli server delete -f &lt;uuid&gt;
+</code></pre>
+
+<h2 id="verbosity-and-debugging">Verbosity and Debugging</h2>
+<p>Increase the verbosity by changing the log level from its default value <code>ERROR</code> to the value <code>INFO</code>:</p>
+<pre><code class="shell">cloudscale-cli --debug server list
+</code></pre>
+
+<p>or alternatively</p>
+<pre><code class="shell">export CLOUDSCALE_DEBUG=1
+cloudscale-cli server list
+</code></pre>
+
+<p>To set the default log level e.g. to <code>DEBUG</code> use the <code>CLOUDSCALE_LOG_LEVEL</code> environment variable:</p>
+<pre><code class="shell">export CLOUDSCALE_LOG_LEVEL=debug
+cloudscale-cli server list
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../library/" class="btn btn-neutral float-right" title="Library">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../library/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

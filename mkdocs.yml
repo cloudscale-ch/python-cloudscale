@@ -1,6 +1,0 @@
-site_name: Python Cloudscale
-nav:
-    - Home: index.md
-    - CLI: cli.md
-    - Library: library.md
-theme: readthedocs
