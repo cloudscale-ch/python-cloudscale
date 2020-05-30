@@ -3,4 +3,6 @@ nav:
     - Home: index.md
     - CLI: cli.md
     - Library: library.md
-theme: readthedocs
+theme: material
+markdown_extensions:
+  - codehilite

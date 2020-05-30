@@ -9,3 +9,4 @@ __pycache__/
 .tox
 .venv
 coverage.xml
+site
