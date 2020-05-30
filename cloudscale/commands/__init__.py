@@ -10,12 +10,12 @@ OUTPUT_FORMATS = [
 
 class CloudscaleCommand:
 
-    def __init__(self, cloud_resource_name=None, api_token=None, profile=None, verbose=False, output="table", headers=[]):
+    def __init__(self, cloud_resource_name=None, api_token=None, profile=None, debug=False, output="table", headers=[]):
         try:
             self._client = Cloudscale(
                 api_token=api_token,
                 profile=profile,
-                verbose=verbose
+                debug=debug
             )
         except CloudscaleException as e:
             click.echo(e, err=True)

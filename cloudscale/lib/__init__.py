@@ -3,7 +3,6 @@ from ..error import CloudscaleApiException
 class CloudscaleBase:
 
     def __init__(self):
-        self.verbose = False
         self._client = None
         self.resource = None
 

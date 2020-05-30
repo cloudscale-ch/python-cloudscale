@@ -5,15 +5,13 @@
 ![PyPI - Downloads](https://img.shields.io/pypi/dw/cloudscale)
 [![codecov](https://codecov.io/gh/cloudscale-ch/python-cloudscale/branch/master/graph/badge.svg)](https://codecov.io/gh/resmo/python-cloudscale)
 
-
-
 # Cloudscale
 
 A [cloudscale.ch](https://www.cloudscale.ch) API client for Python3 and your command line.
 
 ## Install / Update
 
-~~~
+~~~shell
 pip3 install -U cloudscale --user
 export PATH=$PATH:$HOME/.local/bin
 cloudscale-cli version
@@ -24,11 +22,13 @@ cloudscale-cli version
 ### Autocompletion
 
 zsh:
+
 ~~~shell
 eval "$(_CLOUDSCALE_CLI_COMPLETE=source_zsh cloudscale-cli)"
 ~~~
 
 bash:
+
 ~~~shell
 eval "$(_CLOUDSCALE_CLI_COMPLETE=source cloudscale-cli)"
 ~~~
@@ -63,7 +63,7 @@ api_token = <token>
 
 The default profile taken if available is `default`. The profile can be chosen by passing `--profile` or `CLOUDSCALE_PROFILE` ENV variable.
 
-~~~
+~~~shell
 export CLOUDSCALE_PROFILE=staging
 ~~~
 
@@ -76,7 +76,8 @@ api_token = <token>
 ~~~
 
 Passing the command line option will overwrite the ENV var as one would expect:
-~~~
+
+~~~shell
 cloudscale-cli --profile production server list
 ~~~
 
@@ -92,7 +93,7 @@ Options:
   --version                  Show the version and exit.
   -a, --api-token TEXT       API token.
   -p, --profile TEXT         Profile used in config file.
-  -v, --verbose              Enables verbose mode.
+  --debug                    Enables debug log output.
   -o, --output [table|json]  Output format.  [default: table]
   -h, --help                 Show this message and exit.
 
@@ -190,6 +191,7 @@ cloudscale-cli server delete -f <uuid>
 ## Usage in Python
 
 ### List the slug of all flavors
+
 ~~~python
 import os
 from cloudscale import Cloudscale, CloudscaleApiException
@@ -203,6 +205,7 @@ for flavor in flavors:
 ~~~
 
 ### Print the server names of running servers
+
 ~~~python
 import os
 from cloudscale import Cloudscale, CloudscaleApiException
@@ -217,6 +220,7 @@ for server in servers:
 ~~~
 
 ### Print the server names of all servers having a specifc tag project
+
 ~~~python
 import os
 from cloudscale import Cloudscale, CloudscaleApiException
@@ -230,6 +234,7 @@ for server in servers:
 ~~~
 
 ### Print the server names of all servers having a specifc tag project with value apollo
+
 ~~~python
 import os
 from cloudscale import Cloudscale, CloudscaleApiException
@@ -243,6 +248,7 @@ for server in servers:
 ~~~
 
 ### Get resource by UUID
+
 ~~~python
 import os
 from cloudscale import Cloudscale, CloudscaleApiException
@@ -258,6 +264,7 @@ except CloudscaleApiException as e:
 ~~~
 
 ### Error handling
+
 ~~~python
 import os
 from cloudscale import Cloudscale, CloudscaleApiException
@@ -277,9 +284,32 @@ except CloudscaleApiException as e:
     print(e.response)
 ~~~
 
+## Debugging
+
+Increase the verbosity by changing the log level from its default value `ERROR` to the value `INFO`:
+
+~~~shell
+cloudscale-cli --debug server list
+~~~
+
+or alternatively
+
+~~~shell
+export CLOUDSCALE_DEBUG=1
+cloudscale-cli server list
+~~~
+
+To set the default log level e.g. to `DEBUG` use the `CLOUDSCALE_LOG_LEVEL` environment variable:
+
+~~~shell
+export CLOUDSCALE_LOG_LEVEL=debug
+cloudscale-cli server list
+~~~
+
 ## Development
 
 ### Run tests with coverage
+
 ~~~shell
 tox -e coverage
 ~~~

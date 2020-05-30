@@ -1,5 +1,7 @@
 import os
 import configparser
+import logging
+
 from .client import RestAPI
 from .lib.server import Server
 from .lib.server_group import ServerGroup
@@ -12,6 +14,7 @@ from .lib.network import Network
 from .lib.subnet import Subnet
 from .lib.objects_user import ObjectsUser
 
+from .log import logger
 from .error import CloudscaleException, CloudscaleApiException # noqa F401
 
 from .version import __version__
@@ -23,7 +26,12 @@ CLOUDSCALE_CONFIG = 'cloudscale.ini'
 
 class Cloudscale:
 
-    def __init__(self, api_token=None, profile=None, verbose=False):
+    def __init__(self, api_token=None, profile=None, debug=False):
+
+        if debug:
+            logger.setLevel(logging.INFO)
+
+        logger.info(f"Started, version: {__version__}")
 
         if api_token and profile:
             raise CloudscaleException("API token and profile are mutually exclusive")
@@ -36,13 +44,15 @@ class Cloudscale:
         else:
             self.api_token = self.config.get('api_token')
 
-        # Configre requests timeout
-        self.timeout = self.config.get('timeout', 60)
-
         if not self.api_token:
             raise CloudscaleException("Missing API key: see -h for help")
 
-        self.verbose = verbose
+        logger.info(f"API Token used: {self.api_token[:4]}...")
+
+        # Configre requests timeout
+        self.timeout = self.config.get('timeout', 60)
+        logger.debug(f"Timeout is: {self.timeout}")
+
         self.service_classes = {
             'server': Server,
             'server_group': ServerGroup,
@@ -75,6 +85,8 @@ class Cloudscale:
         else:
             profile = os.getenv('CLOUDSCALE_PROFILE', 'default')
 
+        logger.info(f"Using profile {profile}")
+
         if not conf._sections.get(profile):
             return dict()
 
@@ -91,7 +103,6 @@ class Cloudscale:
             )
             obj = self.service_classes[name]()
             obj._client = client
-            obj.verbose = self.verbose
             return obj
         except KeyError as e:
             msg = "{} not implemented".format(e)

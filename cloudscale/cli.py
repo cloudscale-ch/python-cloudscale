@@ -20,14 +20,14 @@ from .commands.objects_user import objects_user
 @click.version_option(__version__, '--version')
 @click.option('--api-token', '-a', envvar='CLOUDSCALE_API_TOKEN', help="API token.")
 @click.option('--profile', '-p', envvar='CLOUDSCALE_PROFILE', help="Profile used in config file.")
-@click.option('--verbose', '-v', is_flag=True, help='Enables verbose mode.')
+@click.option('--debug', envvar='CLOUDSCALE_DEBUG', is_flag=True, help='Enables debug log output.')
 @click.option('--output', '-o', type=click.Choice(OUTPUT_FORMATS), default="table", help="Output format.", show_default=True)
 @click.pass_context
-def cli(ctx, profile, api_token, verbose, output):
+def cli(ctx, profile, api_token, debug, output):
     ctx.obj = CloudscaleCommand(
         api_token=api_token,
         profile=profile,
-        verbose=verbose,
+        debug=debug,
         output=output,
     )
 
