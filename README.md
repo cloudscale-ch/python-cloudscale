@@ -28,9 +28,3 @@ Please visit https://cloudscale-ch.github.io/python-cloudscale/.
 ~~~shell
 tox -e coverage
 ~~~
-
-### Build and Publish the Docs
-
-~~~shell
-mkdocs gh-deploy --remote-name upstream
-~~~qq
