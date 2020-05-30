@@ -528,7 +528,7 @@ Commands:
 
 
 <h2 id="authentication">Authentication</h2>
-<h4 id="evironment-variable">Evironment variable</h4>
+<h3 id="evironment-variable">Evironment variable</h3>
 <p>Using the ENV <code>CLOUDSCALE_API_TOKEN</code> variable:</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">export</span> <span class="nv">CLOUDSCALE_API_TOKEN</span><span class="o">=</span>&lt;your token&gt;
 cloudscale-cli flavor list
@@ -569,12 +569,21 @@ cloudscale-cli flavor list
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="create-servers">Create Servers</h3>
 <p>Create one server:</p>
-<div class="codehilite"><pre><span></span><code>cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 --ssh-key <span class="s2">&quot;</span><span class="k">$(</span>cat ~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">&quot;</span>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server create <span class="se">\</span>
+--name my-server <span class="se">\</span>
+--flavor flex-2 <span class="se">\</span>
+--image centos-7 <span class="se">\</span>
+--ssh-key <span class="s2">&quot;</span><span class="k">$(</span>cat ~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">&quot;</span>
 </code></pre></div>
 
 
 <p>Create up to 10 servers in a row with <code>--desired-amount</code>:</p>
-<div class="codehilite"><pre><span></span><code>cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 --ssh-key <span class="s2">&quot;</span><span class="k">$(</span>cat ~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">&quot;</span> --desired-amount <span class="m">10</span>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server create <span class="se">\</span>
+--name my-server <span class="se">\</span>
+--flavor flex-2 <span class="se">\</span>
+--image centos-7 <span class="se">\</span>
+--ssh-key <span class="s2">&quot;</span><span class="k">$(</span>cat ~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">&quot;</span> <span class="se">\</span>
+--desired-amount <span class="m">10</span>
 </code></pre></div>
 
 
@@ -607,28 +616,41 @@ cloudscale-cli flavor list
 
 
 <p>Get a list of stopped servers having tag <code>project=demo</code> and start them after accepting:</p>
-<div class="codehilite"><pre><span></span><code>cloudscale-cli server list --filter-tag <span class="nv">project</span><span class="o">=</span>demo --filter-json <span class="s1">&#39;[?status == `stopped`]&#39;</span> --action start
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server list <span class="se">\</span>
+--filter-tag <span class="nv">project</span><span class="o">=</span>demo <span class="se">\</span>
+--filter-json <span class="s1">&#39;[?status == `stopped`]&#39;</span> <span class="se">\</span>
+--action start
 ...
 Do you want to start? <span class="o">[</span>y/N<span class="o">]</span>:
 </code></pre></div>
 
 
 <p>Start a list of stopped servers after accepting having tag <code>project=demo</code>:</p>
-<div class="codehilite"><pre><span></span><code>cloudscale-cli server list --filter-tag <span class="nv">project</span><span class="o">=</span>demo --filter-json <span class="s1">&#39;[?status == `stopped`]&#39;</span> --action start
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server list <span class="se">\</span>
+--filter-tag <span class="nv">project</span><span class="o">=</span>demo <span class="se">\</span>
+--filter-json <span class="s1">&#39;[?status == `stopped`]&#39;</span> <span class="se">\</span>
+--action start
 ...
 Do you want to start? <span class="o">[</span>y/N<span class="o">]</span>:
 </code></pre></div>
 
 
 <p>Delete a list of stopped servers after accepting having tag <code>project=demo</code>:</p>
-<div class="codehilite"><pre><span></span><code>cloudscale-cli server list --filter-tag <span class="nv">project</span><span class="o">=</span>demo --filter-json <span class="s1">&#39;[?status == `stopped`]&#39;</span> --delete
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server list <span class="se">\</span>
+--filter-tag <span class="nv">project</span><span class="o">=</span>demo <span class="se">\</span>
+--filter-json <span class="s1">&#39;[?status == `stopped`]&#39;</span> <span class="se">\</span>
+--delete
 ...
 Do you want to delete? <span class="o">[</span>y/N<span class="o">]</span>:
 </code></pre></div>
 
 
 <p>Get a simplified custom JSON list of stopped servers in profile <code>production</code>:</p>
-<div class="codehilite"><pre><span></span><code>cloudscale-cli -output json --profile production server list --filter-json <span class="s1">&#39;[?status == `stopped`].{&quot;server_name&quot;: name, &quot;zone&quot;: zone.slug, &quot;image&quot;: image.slug, &quot;flavor&quot;: flavor.slug}&#39;</span>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli <span class="se">\</span>
+--output json <span class="se">\</span>
+--profile production <span class="se">\</span>
+server list <span class="se">\</span>
+--filter-json <span class="s1">&#39;[?status == `stopped`].{&quot;server_name&quot;: name, &quot;zone&quot;: zone.slug, &quot;image&quot;: image.slug, &quot;flavor&quot;: flavor.slug}&#39;</span>
 <span class="o">[</span>
     <span class="o">{</span>
         <span class="s2">&quot;flavor&quot;</span>: <span class="s2">&quot;flex-8&quot;</span>,
@@ -658,12 +680,14 @@ Do you want to delete? <span class="o">[</span>y/N<span class="o">]</span>:
 
 
 <p>Add/Update server tags and remove a specific tag key:</p>
-<div class="codehilite"><pre><span></span><code>cloudscale-cli server update &lt;uuid&gt; --tag <span class="nv">project</span><span class="o">=</span>apollo --tag <span class="nv">stage</span><span class="o">=</span>prod --clear-tag status
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server update &lt;uuid&gt; <span class="se">\</span>
+--tag <span class="nv">project</span><span class="o">=</span>apollo --tag <span class="nv">stage</span><span class="o">=</span>prod --clear-tag status
 </code></pre></div>
 
 
 <p>Add/Update server tags, remove other tags:</p>
-<div class="codehilite"><pre><span></span><code>cloudscale-cli server update &lt;uuid&gt; --tag <span class="nv">project</span><span class="o">=</span>apollo --tag <span class="nv">stage</span><span class="o">=</span>prod --clear-all-tags
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server update &lt;uuid&gt; <span class="se">\</span>
+--tag <span class="nv">project</span><span class="o">=</span>apollo --tag <span class="nv">stage</span><span class="o">=</span>prod --clear-all-tags
 </code></pre></div>
 
 
