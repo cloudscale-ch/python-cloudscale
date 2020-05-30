@@ -1,5 +1,6 @@
 import sys
 import click
+import jmespath
 from ..util import to_table, to_pretty_json, tags_to_dict
 from .. import Cloudscale, CloudscaleApiException, CloudscaleException
 
@@ -37,17 +38,29 @@ class CloudscaleCommand:
                 response = [response]
             return to_table(response, self.headers)
 
-    def cmd_list(self, filter_tag=None, action=None, delete=False):
+    def cmd_list(self, filter_tag=None, filter_json=None, action=None, delete=False):
         try:
             response = self.get_client_resource().get_all(filter_tag)
+            if filter_json:
+                try:
+                    response = jmespath.search(filter_json, response)
+                except Exception as e:
+                    click.echo(f"filter_json error: {e}", err=True)
+                    sys.exit(1)
             click.echo(self._format_output(response))
             if delete:
                 click.confirm(f"Do you want to delete?", abort=True)
                 for r in response:
+                    if 'uuid' not in r:
+                        click.echo("No UUID found, could not delete.", err=True)
+                        sys.exit(1)
                     self.cmd_delete(uuid=r['uuid'], force=True, skip_query=True)
             elif action:
                 click.confirm(f"Do you want to {action}?", abort=True)
                 for r in response:
+                    if 'uuid' not in r:
+                        click.echo(f"No UUID found, could not {action}.", err=True)
+                        sys.exit(1)
                     getattr(self.get_client_resource(), action)(r['uuid'])
                 response = self.get_client_resource().get_all(filter_tag)
                 click.echo(self._format_output(response))

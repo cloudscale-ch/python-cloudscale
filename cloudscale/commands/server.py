@@ -17,13 +17,15 @@ def server(ctx):
     ]
 
 @click.option('--filter-tag')
+@click.option('--filter-json')
 @click.option('--action', type=click.Choice(['start', 'stop', 'reboot']))
 @click.option('--delete', is_flag=True)
 @server.command("list")
 @click.pass_obj
-def cmd_list(cloudscale, filter_tag, action, delete):
+def cmd_list(cloudscale, filter_tag, filter_json, action, delete):
     cloudscale.cmd_list(
         filter_tag=filter_tag,
+        filter_json=filter_json,
         action=action,
         delete=delete,
     )
