@@ -354,90 +354,96 @@
                 
                 <h1 id="example-usage-in-python3">Example Usage in Python3</h1>
 <p>Hint: Use th CLI to get impression of the structure in JSON:</p>
-<pre><code class="shell">cloudscale-cli -o json ...
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli -o json ...
+</code></pre></div>
+
 
 <h2 id="list-the-slug-of-all-flavors">List the slug of all flavors</h2>
-<pre><code class="python">import os
-from cloudscale import Cloudscale, CloudscaleApiException
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">cloudscale</span> <span class="kn">import</span> <span class="n">Cloudscale</span><span class="p">,</span> <span class="n">CloudscaleApiException</span>
 
-api_token = os.getenv('CLOUDSCALE_API_TOKEN')
+<span class="n">api_token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CLOUDSCALE_API_TOKEN&#39;</span><span class="p">)</span>
 
-cloudscale = Cloudscale(api_token=api_token)
-flavors = cloudscale.flavor.get_all()
-for flavor in flavors:
-    print(flavor['slug'])
-</code></pre>
+<span class="n">cloudscale</span> <span class="o">=</span> <span class="n">Cloudscale</span><span class="p">(</span><span class="n">api_token</span><span class="o">=</span><span class="n">api_token</span><span class="p">)</span>
+<span class="n">flavors</span> <span class="o">=</span> <span class="n">cloudscale</span><span class="o">.</span><span class="n">flavor</span><span class="o">.</span><span class="n">get_all</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">flavor</span> <span class="ow">in</span> <span class="n">flavors</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">flavor</span><span class="p">[</span><span class="s1">&#39;slug&#39;</span><span class="p">])</span>
+</code></pre></div>
+
 
 <h2 id="listing">Listing</h2>
-<pre><code class="python">import os
-from cloudscale import Cloudscale, CloudscaleApiException
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">cloudscale</span> <span class="kn">import</span> <span class="n">Cloudscale</span><span class="p">,</span> <span class="n">CloudscaleApiException</span>
 
-api_token = os.getenv('CLOUDSCALE_API_TOKEN')
+<span class="n">api_token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CLOUDSCALE_API_TOKEN&#39;</span><span class="p">)</span>
 
-cloudscale = Cloudscale(api_token=api_token)
-servers = cloudscale.server.get_all()
-for server in servers:
-    if server['status'] == &quot;running&quot;:
-        print(server['name'])
-</code></pre>
+<span class="n">cloudscale</span> <span class="o">=</span> <span class="n">Cloudscale</span><span class="p">(</span><span class="n">api_token</span><span class="o">=</span><span class="n">api_token</span><span class="p">)</span>
+<span class="n">servers</span> <span class="o">=</span> <span class="n">cloudscale</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">get_all</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">servers</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">server</span><span class="p">[</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;running&quot;</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+</code></pre></div>
+
 
 <h3 id="use-of-filter_tag-without-value">Use of filter_tag without value</h3>
-<pre><code class="python">import os
-from cloudscale import Cloudscale, CloudscaleApiException
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">cloudscale</span> <span class="kn">import</span> <span class="n">Cloudscale</span><span class="p">,</span> <span class="n">CloudscaleApiException</span>
 
-api_token = os.getenv('CLOUDSCALE_API_TOKEN')
+<span class="n">api_token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CLOUDSCALE_API_TOKEN&#39;</span><span class="p">)</span>
 
-cloudscale = Cloudscale(api_token=api_token)
-servers = cloudscale.server.get_all(filter_tag='project')
-for server in servers:
-    print(server['name'])
-</code></pre>
+<span class="n">cloudscale</span> <span class="o">=</span> <span class="n">Cloudscale</span><span class="p">(</span><span class="n">api_token</span><span class="o">=</span><span class="n">api_token</span><span class="p">)</span>
+<span class="n">servers</span> <span class="o">=</span> <span class="n">cloudscale</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">filter_tag</span><span class="o">=</span><span class="s1">&#39;project&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">servers</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+</code></pre></div>
+
 
 <h3 id="use-of-filter_tag-with-value">Use of filter_tag with value</h3>
-<pre><code class="python">import os
-from cloudscale import Cloudscale, CloudscaleApiException
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">cloudscale</span> <span class="kn">import</span> <span class="n">Cloudscale</span><span class="p">,</span> <span class="n">CloudscaleApiException</span>
 
-api_token = os.getenv('CLOUDSCALE_API_TOKEN')
+<span class="n">api_token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CLOUDSCALE_API_TOKEN&#39;</span><span class="p">)</span>
 
-cloudscale = Cloudscale(api_token=api_token)
-servers = cloudscale.server.get_all(filter_tag='project=apollo')
-for server in servers:
-    print(server['name'])
-</code></pre>
+<span class="n">cloudscale</span> <span class="o">=</span> <span class="n">Cloudscale</span><span class="p">(</span><span class="n">api_token</span><span class="o">=</span><span class="n">api_token</span><span class="p">)</span>
+<span class="n">servers</span> <span class="o">=</span> <span class="n">cloudscale</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">get_all</span><span class="p">(</span><span class="n">filter_tag</span><span class="o">=</span><span class="s1">&#39;project=apollo&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">server</span> <span class="ow">in</span> <span class="n">servers</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+</code></pre></div>
+
 
 <h2 id="get-resource-by-uuid">Get resource by UUID</h2>
-<pre><code class="python">import os
-from cloudscale import Cloudscale, CloudscaleApiException
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">cloudscale</span> <span class="kn">import</span> <span class="n">Cloudscale</span><span class="p">,</span> <span class="n">CloudscaleApiException</span>
 
-api_token = os.getenv('CLOUDSCALE_API_TOKEN')
+<span class="n">api_token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CLOUDSCALE_API_TOKEN&#39;</span><span class="p">)</span>
 
-try:
-    cloudscale = Cloudscale(api_token=api_token)
-    server_group = cloudscale.server_group.get_by_uuid(uuid=&quot;5a1e5b28-d354-47a8-bfb2-01b048c20204&quot;)
-    print(server_group['name'])
-except CloudscaleApiException as e:
-    print(e)
-</code></pre>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">cloudscale</span> <span class="o">=</span> <span class="n">Cloudscale</span><span class="p">(</span><span class="n">api_token</span><span class="o">=</span><span class="n">api_token</span><span class="p">)</span>
+    <span class="n">server_group</span> <span class="o">=</span> <span class="n">cloudscale</span><span class="o">.</span><span class="n">server_group</span><span class="o">.</span><span class="n">get_by_uuid</span><span class="p">(</span><span class="n">uuid</span><span class="o">=</span><span class="s2">&quot;5a1e5b28-d354-47a8-bfb2-01b048c20204&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">server_group</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+<span class="k">except</span> <span class="n">CloudscaleApiException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</code></pre></div>
+
 
 <h2 id="error-handling">Error handling</h2>
-<pre><code class="python">import os
-from cloudscale import Cloudscale, CloudscaleApiException
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">cloudscale</span> <span class="kn">import</span> <span class="n">Cloudscale</span><span class="p">,</span> <span class="n">CloudscaleApiException</span>
 
-api_token = os.getenv('CLOUDSCALE_API_TOKEN')
+<span class="n">api_token</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">&#39;CLOUDSCALE_API_TOKEN&#39;</span><span class="p">)</span>
 
-try:
-    cloudscale = Cloudscale(api_token=api_token)
-    server = cloudscale.server.get_by_uuid(uuid=&quot;does-not-exist&quot;)
-    print(server['name'])
-except CloudscaleApiException as e:
-    # Prints &quot;API Response Error (404): Not found.&quot;
-    print(e)
-    # Prints &quot;404&quot;
-    print(e.status_code)
-    # Prints raw API response
-    print(e.response)
-</code></pre>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">cloudscale</span> <span class="o">=</span> <span class="n">Cloudscale</span><span class="p">(</span><span class="n">api_token</span><span class="o">=</span><span class="n">api_token</span><span class="p">)</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">cloudscale</span><span class="o">.</span><span class="n">server</span><span class="o">.</span><span class="n">get_by_uuid</span><span class="p">(</span><span class="n">uuid</span><span class="o">=</span><span class="s2">&quot;does-not-exist&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">server</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+<span class="k">except</span> <span class="n">CloudscaleApiException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="c1"># Prints &quot;API Response Error (404): Not found.&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+    <span class="c1"># Prints &quot;404&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+    <span class="c1"># Prints raw API response</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">response</span><span class="p">)</span>
+</code></pre></div>
                 
               
               

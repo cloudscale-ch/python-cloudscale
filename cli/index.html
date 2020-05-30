@@ -491,15 +491,15 @@
                 <h1 id="command-line-interface">Command Line Interface</h1>
 <h2 id="help">Help</h2>
 <p>See all options:</p>
-<pre><code class="shell"> $ cloudscale-cli
-Usage: cloudscale-cli [OPTIONS] COMMAND [ARGS]...
+<div class="codehilite"><pre><span></span><code> $ cloudscale-cli
+Usage: cloudscale-cli <span class="o">[</span>OPTIONS<span class="o">]</span> COMMAND <span class="o">[</span>ARGS<span class="o">]</span>...
 
 Options:
   --version                  Show the version and exit.
   -a, --api-token TEXT       API token.
   -p, --profile TEXT         Profile used in config file.
   --debug                    Enables debug log output.
-  -o, --output [table|json]  Output format.  [default: table]
+  -o, --output <span class="o">[</span>table<span class="p">|</span>json<span class="o">]</span>  Output format.  <span class="o">[</span>default: table<span class="o">]</span>
   -h, --help                 Show this message and exit.
 
 Commands:
@@ -513,167 +513,197 @@ Commands:
   server-group
   subnet
   volume
-</code></pre>
+</code></pre></div>
+
 
 <h2 id="autocompletion">Autocompletion</h2>
 <p>zsh:</p>
-<pre><code class="shell">eval &quot;$(_CLOUDSCALE_CLI_COMPLETE=source_zsh cloudscale-cli)&quot;
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span><span class="nv">_CLOUDSCALE_CLI_COMPLETE</span><span class="o">=</span>source_zsh cloudscale-cli<span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div>
+
 
 <p>bash:</p>
-<pre><code class="shell">eval &quot;$(_CLOUDSCALE_CLI_COMPLETE=source cloudscale-cli)&quot;
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="nb">eval</span> <span class="s2">&quot;</span><span class="k">$(</span><span class="nv">_CLOUDSCALE_CLI_COMPLETE</span><span class="o">=</span><span class="nb">source</span> cloudscale-cli<span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div>
+
 
 <h2 id="authentication">Authentication</h2>
 <h4 id="evironment-variable">Evironment variable</h4>
 <p>Using the ENV <code>CLOUDSCALE_API_TOKEN</code> variable:</p>
-<pre><code class="shell">export CLOUDSCALE_API_TOKEN=&lt;your token&gt;
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span> <span class="nv">CLOUDSCALE_API_TOKEN</span><span class="o">=</span>&lt;your token&gt;
 cloudscale-cli flavor list
-</code></pre>
+</code></pre></div>
+
 
 <h3 id="command-line-argument">Command line argument</h3>
 <p>Passing the <code>--api-token</code> parameter:</p>
-<pre><code class="shell">cloudscale-cli --api-token &lt;your_token&gt; server create ...
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli --api-token &lt;your_token&gt; server create ...
+</code></pre></div>
+
 
 <h3 id="config-file">Config file</h3>
 <p>Creating an ini file <code>.cloudscale.ini</code> (leading dot) in your <code>$HOME</code> or a <code>cloudscale.ini</code> (without leading dot) in the <code>CWD</code> with the following schema:</p>
-<pre><code class="ini">[default]
-api_token = &lt;token&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">[default]</span>
+<span class="na">api_token</span> <span class="o">=</span> <span class="s">&lt;token&gt;</span>
+</code></pre></div>
+
 
 <p>The default profile taken if available is <code>default</code>. The profile can be chosen by passing <code>--profile</code> or <code>CLOUDSCALE_PROFILE</code> ENV variable.</p>
-<pre><code class="shell">export CLOUDSCALE_PROFILE=staging
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span> <span class="nv">CLOUDSCALE_PROFILE</span><span class="o">=</span>staging
+</code></pre></div>
 
-<pre><code class="ini">[production]
-api_token = &lt;token&gt;
 
-[staging]
-api_token = &lt;token&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><code><span class="k">[production]</span>
+<span class="na">api_token</span> <span class="o">=</span> <span class="s">&lt;token&gt;</span>
+
+<span class="k">[staging]</span>
+<span class="na">api_token</span> <span class="o">=</span> <span class="s">&lt;token&gt;</span>
+</code></pre></div>
+
 
 <p>Passing the command line option will overwrite the ENV var as one would expect:</p>
-<pre><code class="shell">cloudscale-cli --profile production server list
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli --profile production server list
+</code></pre></div>
+
 
 <h2 id="usage-examples">Usage Examples</h2>
 <h3 id="create-servers">Create Servers</h3>
 <p>Create one server:</p>
-<pre><code class="shell">cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 --ssh-key &quot;$(cat ~/.ssh/id_rsa.pub)&quot;
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 --ssh-key <span class="s2">&quot;</span><span class="k">$(</span>cat ~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">&quot;</span>
+</code></pre></div>
+
 
 <p>Create up to 10 servers in a row with <code>--desired-amount</code>:</p>
-<pre><code class="shell">cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 --ssh-key &quot;$(cat ~/.ssh/id_rsa.pub)&quot; --desired-amount 10
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server create --flavor flex-2 --name my-server --image centos-7 --ssh-key <span class="s2">&quot;</span><span class="k">$(</span>cat ~/.ssh/id_rsa.pub<span class="k">)</span><span class="s2">&quot;</span> --desired-amount <span class="m">10</span>
+</code></pre></div>
+
 
 <h3 id="list-servers">List Servers</h3>
 <p>Get a list as table view:</p>
-<pre><code class="shell">cloudscale-cli server list
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server list
+</code></pre></div>
+
 
 <p>Get a list as JSON response:</p>
-<pre><code class="shell">cloudscale-cli -o json server list
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli -o json server list
+</code></pre></div>
+
 
 <h4 id="list-servers-and-filter-by-tag">List Servers and Filter by Tag</h4>
 <p>List servers having the tag project with value gemini:</p>
-<pre><code class="shell">cloudscale-cli server list --filter-tag project=gemini
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server list --filter-tag <span class="nv">project</span><span class="o">=</span>gemini
+</code></pre></div>
+
 
 <p>List servers having a tag project:</p>
-<pre><code class="shell">cloudscale-cli server list --filter-tag project
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server list --filter-tag project
+</code></pre></div>
+
 
 <h4 id="list-servers-and-filter-by-json-query">List Servers and Filter by JSON Query</h4>
 <p>Get a list of stopped servers:</p>
-<pre><code class="shell">cloudscale-cli server list --filter-json '[?status == `stopped`]'
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server list --filter-json <span class="s1">&#39;[?status == `stopped`]&#39;</span>
+</code></pre></div>
+
 
 <p>Get a list of stopped servers having tag <code>project=demo</code> and start them after accepting:</p>
-<pre><code class="shell">cloudscale-cli server list --filter-tag project=demo --filter-json '[?status == `stopped`]' --action start
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server list --filter-tag <span class="nv">project</span><span class="o">=</span>demo --filter-json <span class="s1">&#39;[?status == `stopped`]&#39;</span> --action start
 ...
-Do you want to start? [y/N]:
-</code></pre>
+Do you want to start? <span class="o">[</span>y/N<span class="o">]</span>:
+</code></pre></div>
+
 
 <p>Start a list of stopped servers after accepting having tag <code>project=demo</code>:</p>
-<pre><code class="shell">cloudscale-cli server list --filter-tag project=demo --filter-json '[?status == `stopped`]' --action start
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server list --filter-tag <span class="nv">project</span><span class="o">=</span>demo --filter-json <span class="s1">&#39;[?status == `stopped`]&#39;</span> --action start
 ...
-Do you want to start? [y/N]:
-</code></pre>
+Do you want to start? <span class="o">[</span>y/N<span class="o">]</span>:
+</code></pre></div>
+
 
 <p>Delete a list of stopped servers after accepting having tag <code>project=demo</code>:</p>
-<pre><code class="shell">cloudscale-cli server list --filter-tag project=demo --filter-json '[?status == `stopped`]' --delete
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server list --filter-tag <span class="nv">project</span><span class="o">=</span>demo --filter-json <span class="s1">&#39;[?status == `stopped`]&#39;</span> --delete
 ...
-Do you want to delete? [y/N]:
-</code></pre>
+Do you want to delete? <span class="o">[</span>y/N<span class="o">]</span>:
+</code></pre></div>
+
 
 <p>Get a simplified custom JSON list of stopped servers in profile <code>production</code>:</p>
-<pre><code class="shell">cloudscale-cli -output json --profile production server list --filter-json '[?status == `stopped`].{&quot;server_name&quot;: name, &quot;zone&quot;: zone.slug, &quot;image&quot;: image.slug, &quot;flavor&quot;: flavor.slug}'
-[
-    {
-        &quot;flavor&quot;: &quot;flex-8&quot;,
-        &quot;image&quot;: &quot;rhel-7&quot;,
-        &quot;server_name&quot;: &quot;server1&quot;,
-        &quot;zone&quot;: &quot;rma1&quot;
-    },
-    {
-        &quot;flavor&quot;: &quot;flex-8&quot;,
-        &quot;image&quot;: &quot;centos-7&quot;,
-        &quot;server_name&quot;: &quot;server2&quot;,
-        &quot;zone&quot;: &quot;rma1&quot;
-    }
-]
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli -output json --profile production server list --filter-json <span class="s1">&#39;[?status == `stopped`].{&quot;server_name&quot;: name, &quot;zone&quot;: zone.slug, &quot;image&quot;: image.slug, &quot;flavor&quot;: flavor.slug}&#39;</span>
+<span class="o">[</span>
+    <span class="o">{</span>
+        <span class="s2">&quot;flavor&quot;</span>: <span class="s2">&quot;flex-8&quot;</span>,
+        <span class="s2">&quot;image&quot;</span>: <span class="s2">&quot;rhel-7&quot;</span>,
+        <span class="s2">&quot;server_name&quot;</span>: <span class="s2">&quot;server1&quot;</span>,
+        <span class="s2">&quot;zone&quot;</span>: <span class="s2">&quot;rma1&quot;</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+        <span class="s2">&quot;flavor&quot;</span>: <span class="s2">&quot;flex-8&quot;</span>,
+        <span class="s2">&quot;image&quot;</span>: <span class="s2">&quot;centos-7&quot;</span>,
+        <span class="s2">&quot;server_name&quot;</span>: <span class="s2">&quot;server2&quot;</span>,
+        <span class="s2">&quot;zone&quot;</span>: <span class="s2">&quot;rma1&quot;</span>
+    <span class="o">}</span>
+<span class="o">]</span>
+</code></pre></div>
+
 
 <h3 id="working-with-tags">Working with Tags</h3>
 <p>Add/Update servers tags (but keep all existing with different keys):</p>
-<pre><code class="shell">cloudscale-cli server update &lt;uuid&gt; --tag project=apollo --tag stage=prod
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server update &lt;uuid&gt; --tag <span class="nv">project</span><span class="o">=</span>apollo --tag <span class="nv">stage</span><span class="o">=</span>prod
+</code></pre></div>
+
 
 <p>Delete a server tag (but keep all others existing):</p>
-<pre><code class="shell">cloudscale-cli server update &lt;uuid&gt; --clear-tag status
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server update &lt;uuid&gt; --clear-tag status
+</code></pre></div>
+
 
 <p>Add/Update server tags and remove a specific tag key:</p>
-<pre><code class="shell">cloudscale-cli server update &lt;uuid&gt; --tag project=apollo --tag stage=prod --clear-tag status
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server update &lt;uuid&gt; --tag <span class="nv">project</span><span class="o">=</span>apollo --tag <span class="nv">stage</span><span class="o">=</span>prod --clear-tag status
+</code></pre></div>
+
 
 <p>Add/Update server tags, remove other tags:</p>
-<pre><code class="shell">cloudscale-cli server update &lt;uuid&gt; --tag project=apollo --tag stage=prod --clear-all-tags
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server update &lt;uuid&gt; --tag <span class="nv">project</span><span class="o">=</span>apollo --tag <span class="nv">stage</span><span class="o">=</span>prod --clear-all-tags
+</code></pre></div>
+
 
 <h3 id="server-actions">Server Actions</h3>
 <p>Stop a server:</p>
-<pre><code class="shell">cloudscale-cli server stop &lt;uuid&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server stop &lt;uuid&gt;
+</code></pre></div>
+
 
 <p>Start a server:</p>
-<pre><code class="shell">cloudscale-cli server start &lt;uuid&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server start &lt;uuid&gt;
+</code></pre></div>
+
 
 <p>Delete a server after accepting:</p>
-<pre><code class="shell">cloudscale-cli server delete &lt;uuid&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server delete &lt;uuid&gt;
+</code></pre></div>
+
 
 <p>Just delete without questions asked:</p>
-<pre><code class="shell">cloudscale-cli server delete -f &lt;uuid&gt;
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli server delete -f &lt;uuid&gt;
+</code></pre></div>
+
 
 <h2 id="verbosity-and-debugging">Verbosity and Debugging</h2>
 <p>Increase the verbosity by changing the log level from its default value <code>ERROR</code> to the value <code>INFO</code>:</p>
-<pre><code class="shell">cloudscale-cli --debug server list
-</code></pre>
+<div class="codehilite"><pre><span></span><code>cloudscale-cli --debug server list
+</code></pre></div>
+
 
 <p>or alternatively</p>
-<pre><code class="shell">export CLOUDSCALE_DEBUG=1
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span> <span class="nv">CLOUDSCALE_DEBUG</span><span class="o">=</span><span class="m">1</span>
 cloudscale-cli server list
-</code></pre>
+</code></pre></div>
+
 
 <p>To set the default log level e.g. to <code>DEBUG</code> use the <code>CLOUDSCALE_LOG_LEVEL</code> environment variable:</p>
-<pre><code class="shell">export CLOUDSCALE_LOG_LEVEL=debug
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span> <span class="nv">CLOUDSCALE_LOG_LEVEL</span><span class="o">=</span>debug
 cloudscale-cli server list
-</code></pre>
+</code></pre></div>
                 
               
               
