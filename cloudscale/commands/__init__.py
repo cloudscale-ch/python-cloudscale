@@ -1,5 +1,6 @@
 import sys
 import click
+from yaspin import yaspin
 import jmespath
 from ..util import to_table, to_pretty_json, tags_to_dict
 from .. import Cloudscale, CloudscaleApiException, CloudscaleException
@@ -43,7 +44,8 @@ class CloudscaleCommand:
             click.echo("Error: --action and --delete are mutually exclusive", err=True)
             sys.exit(1)
         try:
-            response = self.get_client_resource().get_all(filter_tag)
+            with yaspin(text="Querying"):
+                response = self.get_client_resource().get_all(filter_tag)
             if filter_json:
                 try:
                     response = jmespath.search(filter_json, response)
@@ -64,8 +66,10 @@ class CloudscaleCommand:
                     if 'uuid' not in r:
                         click.echo(f"No UUID found, could not {action}.", err=True)
                         sys.exit(1)
-                    getattr(self.get_client_resource(), action)(r['uuid'])
-                response = self.get_client_resource().get_all(filter_tag)
+                    with yaspin(text=f"{action.capitalize()} {r['uuid']}"):
+                        getattr(self.get_client_resource(), action)(r['uuid'])
+                with yaspin(text="Querying"):
+                    response = self.get_client_resource().get_all(filter_tag)
                 click.echo(self._format_output(response))
         except CloudscaleApiException as e:
             click.echo(e, err=True)
@@ -73,7 +77,8 @@ class CloudscaleCommand:
 
     def cmd_show(self, uuid):
         try:
-            response = self.get_client_resource().get_by_uuid(uuid)
+            with yaspin(text=f"Querying {uuid}"):
+                response = self.get_client_resource().get_by_uuid(uuid)
             click.echo(self._format_output(response))
         except CloudscaleApiException as e:
             click.echo(e, err=True)
@@ -87,7 +92,8 @@ class CloudscaleCommand:
                 except ValueError as e:
                     click.echo(e, err=True)
                     sys.exit(1)
-            response = self.get_client_resource().create(**kwargs)
+            with yaspin(text="Creating"):
+                response = self.get_client_resource().create(**kwargs)
             if not silent:
                 click.echo(self._format_output(response))
             else:
@@ -113,12 +119,13 @@ class CloudscaleCommand:
                     click.echo(e, err=True)
                     sys.exit(1)
 
-            self.get_client_resource().update(
-                uuid=uuid,
-                tags=_tags,
-                **kwargs,
-            )
-            response = self.get_client_resource().get_by_uuid(uuid=uuid)
+            with yaspin(text=f"Updating {uuid}"):
+                self.get_client_resource().update(
+                    uuid=uuid,
+                    tags=_tags,
+                    **kwargs,
+                )
+                response = self.get_client_resource().get_by_uuid(uuid=uuid)
             click.echo(self._format_output(response))
         except CloudscaleApiException as e:
             click.echo(e, err=True)
@@ -127,11 +134,13 @@ class CloudscaleCommand:
     def cmd_delete(self, uuid, force=False, skip_query=False):
         try:
             if not skip_query:
-                response = self.get_client_resource().get_by_uuid(uuid)
+                with yaspin(text=f"Querying {uuid}"):
+                    response = self.get_client_resource().get_by_uuid(uuid)
                 click.echo(self._format_output(response))
             if not force:
                 click.confirm('Do you want to delete?', abort=True)
-            self.get_client_resource().delete(uuid)
+            with yaspin(text=f"Deleting {uuid}"):
+                self.get_client_resource().delete(uuid)
             click.echo(f"{uuid} deleted!")
         except CloudscaleApiException as e:
             click.echo(e, err=True)
@@ -139,8 +148,11 @@ class CloudscaleCommand:
 
     def cmd_act(self, action, uuid):
         try:
-            getattr(self.get_client_resource(), action)(uuid)
-            response = self.get_client_resource().get_by_uuid(uuid)
+            with yaspin(text=f"{action} {uuid}"):
+                getattr(self.get_client_resource(), action)(uuid)
+
+            with yaspin(text=f"Querying {uuid}"):
+                response = self.get_client_resource().get_by_uuid(uuid)
             click.echo(self._format_output(response))
         except CloudscaleApiException as e:
             click.echo(e, err=True)
