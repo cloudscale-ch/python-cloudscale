@@ -1,3 +1,4 @@
+import sys
 import click
 import uuid
 
@@ -80,10 +81,15 @@ def cmd_create(
         while len(servers_created) < count:
             uid = str(uuid.uuid4()).split('-')[0]
             counter = len(servers_created) + 1
+            try:
+                server_name = name.format(uid=uid, counter=counter)
+            except KeyError as e:
+                click.echo(f"Error: Could not format name '{name}': {e}", err=True)
+                sys.exit(1)
 
             s = cloudscale.cmd_create(
                 silent=True,
-                name=name.format(uid=uid, counter=counter),
+                name=server_name,
                 flavor=flavor,
                 image=image,
                 zone=zone,
