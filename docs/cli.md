@@ -106,15 +106,28 @@ cloudscale-cli server create \
 --ssh-key "$(cat ~/.ssh/id_rsa.pub)"
 ~~~
 
-Create up to 10 servers in a row with `--desired-amount`:
+Create up to 10 servers in a row with `--count`:
+
+!!! tip
+    When using `--count`, the option `--name` allows to use string format syntax with 2 special variables:
+
+    - `counter`: A number representing the current interation while creating multiple servers.
+    - `uid`: A random 8 char/number long string.
+
+    This allows to create dynamic names, e.g.:
+
+    - Single number suffix: `--name 'myserver-{counter}'`
+    - Number with leading zero suffix: `--name 'server-{counter:02d}'`
+    - Random string suffix: `--name 'server-{uid}'`
+    - Combinations: `--name 'server-{uid}-{counter:02d}.example.com'`
 
 ~~~shell
 cloudscale-cli server create \
---name my-server \
+--name 'my-server-{uid}' \
 --flavor flex-2 \
 --image centos-7 \
 --ssh-key "$(cat ~/.ssh/id_rsa.pub)" \
---desired-amount 10
+--count 10
 ~~~
 
 ### List Servers

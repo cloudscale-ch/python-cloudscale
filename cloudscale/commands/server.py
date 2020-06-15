@@ -38,7 +38,7 @@ def cmd_show(cloudscale, uuid):
         uuid=uuid,
     )
 
-@click.option('--desired-amount', type=click.IntRange(1, 10), default=1, show_default=True)
+@click.option('--count', type=click.IntRange(1, 10), default=1, show_default=True)
 @click.option('--name', required=True)
 @click.option('--flavor', required=True)
 @click.option('--image', required=True)
@@ -73,17 +73,17 @@ def cmd_create(
     server_groups,
     user_data,
     tags,
-    desired_amount,
+    count,
 ):
-    if desired_amount > 1:
+    if count > 1:
         servers_created = list()
+        while len(servers_created) < count:
+            uid = str(uuid.uuid4()).split('-')[0]
+            counter = len(servers_created) + 1
 
-        while len(servers_created) < desired_amount:
-            suffix = str(uuid.uuid4()).split('-')[0]
-            server_name =  click.prompt('Server name:', default=f"{name}-{suffix}")
             s = cloudscale.cmd_create(
                 silent=True,
-                name=server_name,
+                name=name.format(uid=uid, counter=counter),
                 flavor=flavor,
                 image=image,
                 zone=zone,
