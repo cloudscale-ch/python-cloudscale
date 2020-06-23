@@ -4,7 +4,11 @@ nav:
     - Home: index.md
     - CLI: cli.md
     - Library: library.md
-theme: material
+theme:
+  name: material
+  logo: images/cloudscale.ch.png
+  palette:
+    primary: white
 markdown_extensions:
   - codehilite
   - admonition
