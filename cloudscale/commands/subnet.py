@@ -12,11 +12,13 @@ def subnet(ctx):
     ]
 
 @click.option('--filter-tag')
+@click.option('--filter-json')
 @subnet.command("list")
 @click.pass_obj
-def cmd_list(cloudscale, filter_tag):
+def cmd_list(cloudscale, filter_tag, filter_json):
     cloudscale.cmd_list(
         filter_tag=filter_tag,
+        filter_json=filter_json,
     )
 
 @click.argument('uuid', required=True)

@@ -11,7 +11,10 @@ def image(ctx):
         'slug',
     ]
 
+@click.option('--filter-json')
 @image.command("list")
 @click.pass_obj
-def cmd_list(cloudscale):
-    cloudscale.cmd_list()
+def cmd_list(cloudscale, filter_json):
+    cloudscale.cmd_list(
+        filter_json=filter_json,
+    )

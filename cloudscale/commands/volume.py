@@ -15,11 +15,15 @@ def volume(ctx):
     ]
 
 @click.option('--filter-tag')
+@click.option('--filter-json')
+@click.option('--delete', is_flag=True)
 @volume.command("list")
 @click.pass_obj
-def cmd_list(cloudscale, filter_tag):
+def cmd_list(cloudscale, filter_tag, filter_json, delete):
     cloudscale.cmd_list(
         filter_tag=filter_tag,
+        filter_json=filter_json,
+        delete=delete,
     )
 
 @click.argument('uuid', required=True)
